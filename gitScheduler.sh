@@ -5,12 +5,16 @@ USER="admin"
 PASSWORD="admin"
 HOST="localhost"
 PORT=8080
-UPDATED=false
+UPDATED=true
 
 while true; do
     
-  [ $(git rev-parse HEAD) = $(git ls-remote $(git rev-parse --abbrev-ref @{u} | sed 's/\// /g') | cut -f1) ] && UPDATED=true || UPDATED=false    
-  echo $UPDATED
+  [ $(git rev-parse HEAD) = $(git ls-remote $(git rev-parse --abbrev-ref @{u} | sed 's/\// /g') | cut -f1) ] && UPDATED=true || UPDATED=false;
+  echo "repository is updated: "$UPDATED;
+  if [ $UPDATED = false ]; then
+	echo "git pull";
+	git pull;
+  fi
   sleep 1;
    
 done
