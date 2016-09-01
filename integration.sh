@@ -13,7 +13,13 @@ if [ "$?" -ne 0 ]; then
 	echo "mvn install unsuccessfully";
 fi
 
-cp target/integration.war /opt/apache-tomcat-8.0.36/webapps/
+mvn package
+
+if [ "$?" -ne 0 ]; then
+	echo "mvn package unsuccessfully";
+fi
+
+cp ./target/integration.war /opt/apache-tomcat-8.0.36/webapps/
 
 echo "running phantom"
 rm -rf phantomjs/screenshots/*
